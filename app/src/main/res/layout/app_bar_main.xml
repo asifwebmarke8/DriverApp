@@ -4,22 +4,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/contaner"
     android:orientation="vertical"
     tools:context="com.webmarke8.app.gencartdriver.Activities.MainActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <android.support.v7.widget.Toolbar
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary">
+        android:layout_width="match_parent"
+        android:minHeight="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:id="@+id/toolbar" >
 
-        <ImageView
-            android:id="@+id/navigationDrawer"
-            android:layout_width="47dp"
-            android:layout_height="47dp"
-            android:layout_margin="@dimen/_7sdp"
-            android:background="@drawable/menue" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="?attr/colorPrimary">
 
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/navigationDrawer"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:background="@drawable/menue" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
+
+            <Switch
+                android:id="@+id/switchhh"
+                android:layout_width="wrap_content"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_height="wrap_content"
+                style="@style/Widget.AppCompat.CompoundButton.Switch"
+                android:textOff=""
+                android:textOn="" />
+        </LinearLayout>
+
+
+    </android.support.v7.widget.Toolbar>
+
 
     <include
         android:id="@+id/one"

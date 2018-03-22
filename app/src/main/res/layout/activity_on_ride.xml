@@ -13,63 +13,59 @@
         android:background="@color/green"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/navigation"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_marginLeft="@dimen/_7sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:minHeight="?attr/actionBarSize"
-            android:padding="@dimen/_2sdp"
-            android:src="@drawable/menue"
-            android:tint="@android:color/white" />
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar1"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="?attr/actionBarSize">
+            android:background="?attr/colorPrimary">
+
+            <ImageView
+                android:id="@+id/navigationDrawer"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="@dimen/_6sdp"
+                android:background="@drawable/menue" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:gravity="top|center"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/Route"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_weight="5"
+                android:gravity="center"
+                android:text="Route"
+                android:textColor="#fff"
+                android:textSize="19sp"
+                android:textStyle="bold" />
+
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/Back"
-                        android:layout_width="50dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/back_icon" />
-
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="20dp"
-                        android:src="@drawable/back_icon"
-                        android:visibility="invisible" />
-                </LinearLayout>
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="50dp"
-                    android:gravity="center"
-                    android:text="Route"
-                    android:textColor="#fff"
-                    android:textSize="19sp"
-                    android:textStyle="bold" />
-
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:src="@drawable/iconrequests"
+                    android:text="12km\nwaea"
+                    android:visibility="gone" />
             </LinearLayout>
-
-        </android.support.v7.widget.Toolbar>
+        </LinearLayout>
     </LinearLayout>
 
     <RelativeLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -97,8 +93,10 @@
                 app:cardCornerRadius="@dimen/_3sdp">
 
                 <TextView
+                    android:id="@+id/CustomerName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center|left"
                     android:padding="@dimen/_10sdp"
                     android:text="Mr. Ali" />
             </android.support.v7.widget.CardView>
@@ -112,8 +110,11 @@
                 app:cardCornerRadius="@dimen/_3sdp">
 
                 <TextView
+                    android:id="@+id/CustomerAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center|left"
+                    android:lines="1"
                     android:padding="@dimen/_10sdp"
                     android:text="Jhoke Utra P/O Khass"
                     android:textStyle="bold" />
@@ -131,16 +132,18 @@
             android:gravity="center">
 
             <Button
+                android:id="@+id/ChangeStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_marginRight="@dimen/_10sdp"
                 android:background="@drawable/shadow_under_object"
                 android:paddingLeft="@dimen/_10sdp"
                 android:paddingRight="@dimen/_10sdp"
-                android:text="Start route"
+                android:text="Change Status"
                 android:textColor="@android:color/white" />
 
             <Button
+                android:id="@+id/StartChat"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:background="@drawable/shadow_under_object"

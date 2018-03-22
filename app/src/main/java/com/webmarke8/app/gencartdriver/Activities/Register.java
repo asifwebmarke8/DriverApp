@@ -198,6 +198,7 @@ public class Register extends AppCompatActivity {
                 map.put("password", Password.getText().toString());
                 map.put("id", "78789789789");
                 map.put("zipcode", "123456");
+                map.put("fcm_token",AppUtils.getFirebaseInstanceId(getApplicationContext()));
                 map.put("password_confirmation", Password.getText().toString());
                 return map;
             }
@@ -233,19 +234,6 @@ public class Register extends AppCompatActivity {
                             JSONObject json_object,
                             GraphResponse response) {
 
-
-//                        try {
-//                            JSONObject jsonObject = new JSONObject(json_object.toString());
-//                            user_email.setText(jsonObject.get("email").toString());
-//                            user_name.setText(jsonObject.get("name").toString());
-//                            profile_pic_data = new JSONObject(jsonObject.get("picture").toString());
-//                            profile_pic_url = new JSONObject(profile_pic_data.getString("data"));
-//                            Picasso.with(getApplicationContext()).load(profile_pic_url.getString("url"))
-//                                    .into(user_picture);
-//
-//                        } catch(Exception e){
-//                            e.printStackTrace();
-//                        }
 
                     }
                 });

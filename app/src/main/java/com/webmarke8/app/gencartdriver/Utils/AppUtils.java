@@ -2,10 +2,15 @@ package com.webmarke8.app.gencartdriver.Utils;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.Dialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -16,14 +21,18 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -32,12 +41,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.wang.avi.AVLoadingIndicatorView;
+import com.webmarke8.app.gencartdriver.Activities.MainActivity;
 import com.webmarke8.app.gencartdriver.R;
 import com.webmarke8.app.gencartdriver.Session.MyApplication;
 
 import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 
 public class AppUtils {
@@ -525,12 +538,100 @@ public class AppUtils {
 
 
     public static Dialog LoadingSpinner(Context mContext) {
-        Dialog pd = new Dialog(mContext, android.R.style.Theme_Black);
+        Dialog pd = new Dialog(mContext, android.R.style.Theme);
         View view = LayoutInflater.from(mContext).inflate(R.layout.progress, null);
+        AVLoadingIndicatorView avi = (AVLoadingIndicatorView) view.findViewById(R.id.avi);
+        avi.show();
         pd.requestWindowFeature(Window.FEATURE_NO_TITLE);
         pd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         pd.setContentView(view);
         return pd;
+    }
+
+
+    public static void setFirebaseInstanceId(Context context, String InstanceId) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor;
+        editor = sharedPreferences.edit();
+        editor.putString("Token", InstanceId);
+        editor.apply();
+    }
+
+    public static String getFirebaseInstanceId(Context context) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String key = "Token";
+        String default_value = "";
+        return sharedPreferences.getString(key, default_value);
+    }
+
+
+    public static void setStatus(Context context, Boolean InstanceId) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor;
+        editor = sharedPreferences.edit();
+        editor.putBoolean("StatusOnline", InstanceId);
+        editor.apply();
+    }
+
+    public static Boolean getStatus(Context context) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String key = "StatusOnline";
+        return sharedPreferences.getBoolean(key, false);
+    }
+
+    public static boolean isMyServiceRunning(Class<?> serviceClass, Context context) {
+        ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static String getCompleteAddressString(double LATITUDE, double LONGITUDE, Activity activity) {
+        String strAdd = "";
+        Geocoder geocoder = new Geocoder(activity, Locale.getDefault());
+        try {
+            List<Address> addresses = geocoder.getFromLocation(LATITUDE, LONGITUDE, 1);
+            if (addresses != null) {
+                Address returnedAddress = addresses.get(0);
+                StringBuilder strReturnedAddress = new StringBuilder("");
+
+                for (int i = 0; i <= returnedAddress.getMaxAddressLineIndex(); i++) {
+                    strReturnedAddress.append(returnedAddress.getAddressLine(i)).append("\n");
+                }
+                strAdd = strReturnedAddress.toString();
+                Log.d("GetCart", strReturnedAddress.toString());
+            } else {
+                Log.d("GetCart", "No Address returned!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.d("GetCart", "Canont get Address!");
+        }
+        return strAdd;
+    }
+
+    public static void ShowNotification(Context context, String Message) {
+
+        NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        Notification.Builder builder = new Notification.Builder(context);
+        Intent notificationIntent = new Intent(context, MainActivity.class);
+        notificationIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PendingIntent pendIntent = PendingIntent.getActivity(context, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        //set
+
+        builder.setContentIntent(pendIntent);
+        builder.setSmallIcon(R.drawable.ic_launcher_background);
+        builder.setContentText(Message);
+        builder.setContentTitle("GenCart");
+        builder.setAutoCancel(true);
+        builder.setDefaults(Notification.DEFAULT_ALL);
+
+        Notification notification = builder.build();
+        nm.notify((int) System.currentTimeMillis(), notification);
+
     }
 
 }

@@ -18,7 +18,7 @@
             android:title="Earnings" />
         <item
             android:id="@+id/Massages"
-            android:title="Earnings" />
+            android:title="Massages" />
         <item
             android:id="@+id/Logout"
             android:title="Log out" />

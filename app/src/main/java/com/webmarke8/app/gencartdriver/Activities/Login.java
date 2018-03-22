@@ -22,10 +22,14 @@ import com.android.volley.error.TimeoutError;
 import com.android.volley.error.VolleyError;
 import com.android.volley.request.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.medialablk.easytoast.EasyToast;
+import com.webmarke8.app.gencartdriver.Objects.Driver;
 import com.webmarke8.app.gencartdriver.R;
 import com.webmarke8.app.gencartdriver.Session.MyApplication;
 import com.webmarke8.app.gencartdriver.Utils.AppUtils;
 import com.webmarke8.app.gencartdriver.Utils.ServerData;
+import com.webmarke8.app.gencartdriver.Utils.Validations;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,10 +38,7 @@ public class Login extends AppCompatActivity {
 
 
     EditText Email, Password;
-
     MyApplication myApplication;
-
-
     Dialog Progress;
 
     @Override
@@ -70,13 +71,14 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-
-
-//                if (Validations.isValidEmail(Email, "Email is not Valid") && Validations.isEmpity(Password, "Password is not Valid")) {
-//
-//                    Login();
-//                }
+//                Driver driver=new Driver();
+//                myApplication.createLoginSessionDriver(driver);
+//                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+//                finish();
+                if (Validations.isValidEmail(Email, "Email is not Valid") && Validations.isEmpity(Password, "Password is not Valid")) {
+                    Progress.show();
+                    userLogin();
+                }
             }
         });
 
@@ -90,22 +92,27 @@ public class Login extends AppCompatActivity {
         });
     }
 
-    private void Login() {
-        Progress.show();
+    private void userLogin() {
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
                 ServerData.DriverLogin, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
-
                 Progress.dismiss();
-                if (response.trim().equals("success")) {
-                    Toast.makeText(Login.this, "Success", Toast.LENGTH_SHORT).show();
+                if (response.contains("success")) {
 
+                    Gson gson = new Gson();
+                    Driver driver = new Driver();
+                    driver = gson.fromJson(response, Driver.class);
+                    myApplication.createLoginSessionDriver(driver);
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    finish();
                 } else {
-                    Toast.makeText(Login.this, response, Toast.LENGTH_LONG).show();
+                    Email.setError("invalid info");
                 }
+
+
             }
         },
                 new Response.ErrorListener() {
@@ -113,18 +120,16 @@ public class Login extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         Progress.dismiss();
                         if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                            Toast.makeText(getApplicationContext(), "Communication Error!", Toast.LENGTH_SHORT).show();
-
+                            EasyToast.error(getApplicationContext(), "Please check your internet Connection");
                         } else if (error instanceof AuthFailureError) {
-                            Toast.makeText(getApplicationContext(), "Authentication Error!", Toast.LENGTH_SHORT).show();
+                            EasyToast.error(getApplicationContext(), "Authentication Error!");
                         } else if (error instanceof ServerError) {
-                            Toast.makeText(getApplicationContext(), "Server Side Error!", Toast.LENGTH_SHORT).show();
+                            EasyToast.error(getApplicationContext(), "Server Side Error!");
                         } else if (error instanceof NetworkError) {
-                            Toast.makeText(getApplicationContext(), "Network Error!", Toast.LENGTH_SHORT).show();
+                            EasyToast.error(getApplicationContext(), "Network Error!");
                         } else if (error instanceof ParseError) {
-                            Toast.makeText(getApplicationContext(), "Parse Error!", Toast.LENGTH_SHORT).show();
+                            EasyToast.error(getApplicationContext(), "Parse Error!");
                         }
-                        Toast.makeText(Login.this, error.toString(), Toast.LENGTH_LONG).show();
                     }
                 }) {
             @Override
@@ -132,6 +137,7 @@ public class Login extends AppCompatActivity {
                 Map<String, String> map = new HashMap<String, String>();
                 map.put("email", Email.getText().toString().trim());
                 map.put("password", Password.getText().toString().trim());
+                map.put("fcm_token", AppUtils.getFirebaseInstanceId(getApplicationContext()));
                 return map;
             }
 

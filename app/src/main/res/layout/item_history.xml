@@ -32,7 +32,7 @@
                     android:lines="1"
                     android:paddingLeft="@dimen/_10sdp"
                     android:text="Mr Ali"
-                    android:textSize="@dimen/_15sdp"
+                    android:textSize="@dimen/_13sdp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -50,9 +50,8 @@
                     android:layout_height="match_parent"
                     android:layout_margin="@dimen/_3sdp"
                     android:layout_marginRight="@dimen/_100sdp"
-                    android:background="@drawable/shadow_under_object"
+                    android:background="@drawable/openbutton"
                     android:gravity="center"
-                    android:text="Open"
                     android:textColor="@android:color/white"
                     android:textStyle="bold" />
 
@@ -78,17 +77,17 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:orientation="horizontal"
+                android:padding="@dimen/_2sdp"
                 android:paddingLeft="@dimen/_10sdp">
 
                 <TextView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_margin="@dimen/_5sdp"
-                    android:background="@drawable/circle_shape"
+                    android:background="@drawable/circleoflocation"
                     android:gravity="center_vertical"
                     android:lines="1"
-                    android:paddingLeft="@dimen/_10sdp"
                     android:textSize="@dimen/_15sdp"
                     android:textStyle="bold" />
 
@@ -100,7 +99,7 @@
                     android:lines="1"
                     android:paddingLeft="@dimen/_10sdp"
                     android:text="Dera Ghazi Khan"
-                    android:textSize="@dimen/_15sdp"
+                    android:textSize="@dimen/_10sdp"
                     android:textStyle="bold" />
 
 
@@ -109,28 +108,28 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:orientation="horizontal"
+                android:padding="@dimen/_2sdp"
                 android:paddingLeft="@dimen/_10sdp">
 
                 <TextView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_margin="@dimen/_5sdp"
-                    android:background="@drawable/circle_shape"
+                    android:background="@drawable/circleoflocation"
                     android:gravity="center_vertical"
                     android:lines="1"
-                    android:paddingLeft="@dimen/_10sdp"
                     android:textSize="@dimen/_15sdp" />
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:lines="1"
                     android:paddingLeft="@dimen/_10sdp"
                     android:text="Jhoke Uttra p/o Khass"
-                    android:textSize="@dimen/_15sdp"
+                    android:textSize="@dimen/_10sdp"
                     android:textStyle="bold" />
 
 
