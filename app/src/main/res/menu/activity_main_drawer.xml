@@ -13,12 +13,7 @@
         <item
             android:id="@+id/History"
             android:title="History" />
-        <item
-            android:id="@+id/Earnings"
-            android:title="Earnings" />
-        <item
-            android:id="@+id/Massages"
-            android:title="Massages" />
+
         <item
             android:id="@+id/Logout"
             android:title="Log out" />

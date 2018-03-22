@@ -45,13 +45,11 @@ public class Mian extends Fragment implements OnMapReadyCallback {
 
 
     Dialog Progress;
-
     GoogleMap mMap;
     FusedLocationProviderClient mFusedLocationProviderClient;
     private static final int DEFAULT_ZOOM = 15;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private boolean mLocationPermissionGranted;
-
     private Location mLastKnownLocation;
     GPSTracker gpsTracker;
     MyApplication myApplication;

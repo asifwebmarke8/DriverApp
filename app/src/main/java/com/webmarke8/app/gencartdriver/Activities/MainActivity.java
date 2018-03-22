@@ -168,11 +168,9 @@ public class MainActivity extends AppCompatActivity
 //
                                 getSupportFragmentManager().popBackStack();
                                 break;
-                            case R.id.Profile:
+                            case R.id.History:
                                 getSupportFragmentManager().beginTransaction()
                                         .replace(R.id.container, new History(), "History").addToBackStack("").commit();
-
-
                                 break;
                             case R.id.Favorites:
                                 getSupportFragmentManager().beginTransaction()
@@ -234,19 +232,13 @@ public class MainActivity extends AppCompatActivity
                     .replace(R.id.container, new History(), "History").addToBackStack("").commit();
         }
 
-        if (id == R.id.Earnings) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, new Earnings(), "History").addToBackStack("").commit();
-        }
+//        if (id == R.id.Earnings) {
+//            getSupportFragmentManager().beginTransaction()
+//                    .replace(R.id.container, new Earnings(), "History").addToBackStack("").commit();
+//        }
         if (id == R.id.Profile) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.container, new Profile(), "Profile").addToBackStack("").commit();
-        }
-        if (id == R.id.Massages) {
-
-            Intent intent = new Intent(getApplicationContext(), Chat_Activity.class);
-            startActivity(intent);
-
         }
         if (id == R.id.Logout) {
 
